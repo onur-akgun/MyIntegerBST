@@ -31,7 +31,6 @@ public class MyBST implements A1Tree {
     }
 
     private Node root =null;
-    private int size = 0;
     public MyBST(){ }
 
     // TODO: attach a pdf document where you analyze the worst-case time complexity of operations mostSimilarValue and printByLevels.
@@ -78,14 +77,20 @@ public class MyBST implements A1Tree {
 
     @Override public void printByLevels(){ //using Breadth First Search traversal.
         if(root == null) return;
-        Queue<Node> queue = new LinkedList<Node>();
-        queue.clear();
-        queue.add(root);
-        while(!queue.isEmpty()){
-            Node node = queue.remove();
-            System.out.print(node.key + " ");
-            if(node.left != null) queue.add(node.left);
-            if(node.right != null) queue.add(node.right);
+        Queue<Node> q =new LinkedList<>();
+        q.add(root);
+        while(true){
+            int nodeCount = q.size();
+            if(nodeCount == 0) break;
+            while(nodeCount > 0) {
+                Node node = q.peek();
+                System.out.print(node.key + " ");
+                q.remove();
+                if(node.left != null) q.add(node.left);
+                if(node.right != null) q.add(node.right);
+                nodeCount--;
+            }
+            System.out.println();
         }
     }
 
