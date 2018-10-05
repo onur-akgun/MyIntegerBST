@@ -1,11 +1,8 @@
-import java.util.LinkedList;
-import java.util.Queue;
-
 /**
- * Created by Mehdi on 01/10/2018 for the MyIntegerBST project.
+ * neetly Created by Mehdi on 01/10/2018 for the MyIntegerBST A1E1.
  */
 public class MyBST implements A1Tree {
-    //Implement a Binary Search Tree ADT (called MyIntegerBST) for Integer elements
+    //Implement a Binary Search Tree SequenceWithMinimum (called MyIntegerBST) for Integer elements
     /* The property that makes a binary tree into a binary search tree is that for every node,
      * X, in the tree, the values of all the items in its left subtree are smaller than the item in X,
      * and the values of all the items in its right subtree are larger than the item in X
@@ -19,15 +16,14 @@ public class MyBST implements A1Tree {
         tree.insert(8);
         tree.insert(20);
         tree.insert(25);
+        System.out.println("- Expected Output by PrintByLevels() -> ");
+        tree.printByLevels();
         System.out.println("- Expected Output of mostSimilarValue(18) -> "+tree.mostSimilarValue(18));
         System.out.println("- Expected Output of mostSimilarValue(21) -> "+tree.mostSimilarValue(21));
         System.out.println("- Expected Output of mostSimilarValue(21) -> "+tree.mostSimilarValue(24));
         System.out.println("- Expected Output of mostSimilarValue(1) -> "+tree.mostSimilarValue(1));
         System.out.println("- Expected Output of mostSimilarValue(9) -> "+tree.mostSimilarValue(9));
         System.out.println("- Expected Output of mostSimilarValue(15) -> "+tree.mostSimilarValue(15));
-
-        System.out.println("- Expected Output by PrintByLevels() -> ");
-        tree.printByLevels();
     }
 
     private Node root =null;
@@ -76,27 +72,16 @@ public class MyBST implements A1Tree {
     }
 
     @Override public void printByLevels(){ //using Breadth First Search traversal.
-        if(root == null) return;
-        Queue<Node> q =new LinkedList<>();
-        q.add(root);
-        while(true){
-            int nodeCount = q.size();
-            if(nodeCount == 0) break;
-            while(nodeCount > 0) {
-                Node node = q.peek();
-                System.out.print(node.key + " ");
-                q.remove();
-                if(node.left != null) q.add(node.left);
-                if(node.right != null) q.add(node.right);
-                nodeCount--;
-            }
-            System.out.println();
+        int h = depthTree(root);
+        for (int i=1; i<=h; i++){
+            System.out.print("Depth "+(i-1)+" :");
+            printLevel(root, i);
+            System.out.println("\n");
         }
     }
 
     private Node search(Node root, Integer key) {
-        if (root==null)
-            return null;
+        if (root==null) return null;
         if (root.key > key)
            return search(root.left, key);
         else if (root.key < key)
@@ -117,11 +102,28 @@ public class MyBST implements A1Tree {
        }
     }
 
+    private int depthTree(Node root) {
+        if (root == null) return 0;
+        else {
+            int left = depthTree(root.left);
+            int right = depthTree(root.right);
+            if (left > right) return(left+1);
+            else return(right+1);
+        }
+    }
+
+    private void printLevel(Node root , int level) {
+        if (root == null) return;
+        if (level == 1) System.out.print(root.key + "  ");
+        else if (level > 1) {
+            printLevel(root.left, level-1);
+            printLevel(root.right, level-1);
+        }
+    }
     private class Node {
         Integer key;
         Node left = null;
         Node right = null;
-
         Node( Integer theElement){
             this( theElement, null, null );
         }
