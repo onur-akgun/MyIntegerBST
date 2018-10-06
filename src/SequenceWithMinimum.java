@@ -44,6 +44,7 @@ public class SequenceWithMinimum implements A1SequenceWithMinimum {
             tail = added;
         } else{
            if( added.getEncoding() < minEle.getEncoding()) {
+               // When inserting the values are imprinted with an encoding to allow the retrace back to the minimum if removed. ==>check remove Operations.
                added=new Node(value,2*added.getEncoding() - minEle.getEncoding());
                minEle=new Node(value,value);
            }
@@ -116,6 +117,8 @@ public class SequenceWithMinimum implements A1SequenceWithMinimum {
     @Override public Integer findMinimum(){
         if (head == null)
             throw new RuntimeException("List is empty!");
+        if(head==tail)
+            return head.getValue();
         return minEle.getValue();
     }
 
@@ -144,9 +147,10 @@ public class SequenceWithMinimum implements A1SequenceWithMinimum {
     }
 
     private class Node {
-        private Integer value, encoding;
+        private Integer value, encoding; //This encoding appears to function in retaining the minimum value as i insert in the DLL
         private Node prev;
         private Node next;
+
         public Node (Integer x, Integer key) {
             value = x;
             prev = null;
