@@ -101,7 +101,7 @@ public class MyBST implements A1Tree {
            return false;
        }
     }
-
+    //check depth
     private int depthTree(Node root) {
         if (root == null) return 0;
         else {
