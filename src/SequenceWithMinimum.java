@@ -7,19 +7,25 @@ import java.util.EmptyStackException;
 public class SequenceWithMinimum implements A1SequenceWithMinimum {
 
     public static void main(String[] args){
-        SequenceWithMinimum mySDLL = new SequenceWithMinimum();
+        SequenceWithMinimum seq = new SequenceWithMinimum();
 
-        mySDLL.insertRight(4); //seq={4}
-        mySDLL.insertRight(15); //seq={4,15}
-        mySDLL.insertLeft(32);
-        System.out.println( mySDLL.toString());
-        mySDLL.removeLeft();
-        System.out.println( mySDLL.toString());
-        mySDLL.removeLeft();
-        System.out.println( mySDLL.toString());
-        System.out.println( mySDLL.findMinimum());
-        mySDLL.removeLeft();
-        System.out.println( mySDLL.toString());
+        seq.insertRight(5); //seq={5}
+        seq.insertRight(4); //seq={5,4}
+        seq.insertRight(15); //seq={5,4,15}
+
+        System.out.println( seq.toString());
+
+        seq.removeRight(); //returns 15, and seq={5,4}
+        System.out.println( seq.toString());
+        seq.insertLeft(9); //seq={9,5,4}
+        System.out.println( seq.toString());
+
+        seq.removeLeft(); //returns 9, and seq={5,4}
+        seq.removeLeft(); //returns 5, and seq={4}
+        System.out.println( seq.toString());
+
+        System.out.println( seq.findMinimum()); // returns 4, and seq={5,4,15} (seq remains unchanged)
+        System.out.println( seq.toString());
     }
 
     private Node head = null;
