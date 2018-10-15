@@ -17,6 +17,7 @@ Implement a Binary Search Tree ADT (called MyIntegerBST) for Integer elements th
         Next figure shows an example of a tree and the expected output.
         
 Exercise 2
+
 Propose the implementation of an ADT "SequenceWithMinimum" that supports the following operations: 
   insertRight(Integer value) 
   removeRight()
